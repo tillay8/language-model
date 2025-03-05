@@ -9,7 +9,6 @@ from collections import defaultdict
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 
 # File Paths
-csv_filename = "messages.csv"
 model_filename = "word_model.json"
 
 # Store word relationships (bigrams and unigrams)
@@ -41,7 +40,7 @@ def load_model():
         except Exception as e:
             logging.error(f"Error loading model: {e}")
 
-def update_pairs():
+def update_pairs(csv_filename):
     """Update word relationships from messages.csv."""
     if not os.path.exists(csv_filename):
         return
@@ -86,7 +85,7 @@ def likely_next(content):
 
     return None
 
-def generate_sentence(start_text, depth=12):
+def generate_sentence(start_text, csv_filename, depth=12):
     """Recursively generate a phrase using bigrams with unigram fallback."""
     for _ in range(depth):
         next_word = likely_next(start_text)
@@ -100,11 +99,11 @@ def generate_sentence(start_text, depth=12):
 
     return start_text
 
-def update_model(content):
+def update_model(content, csv_filename):
     """if new messages are made, add them to the csv file"""
     try:
         with open(csv_filename, mode="a", newline="", encoding="utf-8") as file:
-            writer = csv.writer(file)
+            writer = cs1. v.writer(file)
             writer.writerow([content])
 
         words = content.lower().split()
