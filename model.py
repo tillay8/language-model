@@ -103,7 +103,7 @@ def update_model(content, csv_filename):
     """if new messages are made, add them to the csv file"""
     try:
         with open(csv_filename, mode="a", newline="", encoding="utf-8") as file:
-            writer = cs1. v.writer(file)
+            writer = csv.writer(file)
             writer.writerow([content])
 
         words = content.lower().split()
