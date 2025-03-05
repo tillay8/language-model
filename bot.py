@@ -2,7 +2,7 @@ import discord
 from model import *
 
 # Instance Variables
-token_path = "~/bot_tokens/Catgirl_token"
+token_path = "~/bot_tokens/SLM.token"
 
 # Discord Bot Setup
 intents = discord.Intents.default()
