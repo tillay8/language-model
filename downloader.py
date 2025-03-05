@@ -10,12 +10,11 @@ try:
     with open(os.path.expanduser(token_path), "r") as f:
         token = f.readline().strip()
 except Exception as e:
-    logging.error(f"Error loading bot token: {e}")
-    exit(1)
+    sys.exit(f"Error loading bot token: {e}")
 
 header_data = {
     "Content-Type": "application/json",
-    "Authorization": get_token()
+    "Authorization": token
 }
 
 def get_most_recent_messages(channel_id, before_id, limit):
@@ -56,16 +55,19 @@ def save_messages_to_csv(channel_id, limit, filename):
         else:
             print("Error fetching messages.")
             break
+def main():
+    filename = "messages.csv"
+    if len(sys.argv) < 3:
+        print("Usage: python3 downloader.py <channel_id> <num_messages> <file_name>")
+        sys.exit(1)
 
-filename = "messages.csv"
-if len(sys.argv) < 3:
-    print("Usage: python3 downloader.py <channel_id> <num_messages> <file_name>")
-    sys.exit(1)
+    elif len(sys.argv) == 3:
+        channel_id = sys.argv[1]
+        num_messages = sys.argv[2]
+    if len(sys.argv) > 3:
+        filename = sys.argv[3]
 
-elif len(sys.argv) == 3:
-    channel_id = sys.argv[1]
-    num_messages = sys.argv[2]
-if len(sys.argv) > 3:
-    filename = sys.argv[3]
+    save_messages_to_csv(channel_id, num_messages, filename)
 
-save_messages_to_csv(channel_id, num_messages, filename)
+if __name__ == main:
+    main()
