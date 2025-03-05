@@ -3,12 +3,15 @@ import requests
 import csv
 import sys
 
-TOKEN_FILE = "./tillay8_token"
+token_path = "~/bot_tokens/tillay8.token"
 
-def get_token():
-    if os.path.exists(TOKEN_FILE):
-        with open(TOKEN_FILE, 'r') as f:
-            return f.readline().strip()
+# Load token securely
+try:
+    with open(os.path.expanduser(token_path), "r") as f:
+        token = f.readline().strip()
+except Exception as e:
+    logging.error(f"Error loading bot token: {e}")
+    exit(1)
 
 header_data = {
     "Content-Type": "application/json",
